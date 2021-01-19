@@ -1,0 +1,43 @@
+{
+  "Name": "facelocalizerCombiemo",
+  "Description": "contrasts for the face localizer in the Combiemo dataset",
+  "Input": {
+    "task": "facelocalizerCombiemo"
+  },
+  "Steps": [
+    {
+      "Level": "subject",
+      "AutoContrasts": ["trial_type.faces", "trial_type.objects" ],
+      "Contrasts": [
+        {
+          "Name": "faces_gt_objects",
+          "ConditionList": [
+            "trial_type.faces", "trial_type.objects"
+          ],
+          "weights": [1, -1],
+          "type": "t"
+        },
+        {
+          "Name": "objects_gt_voices",
+          "ConditionList": [
+            "trial_type.faces", "trial_type.objects"
+          ],
+          "weights": [-1, 1],
+          "type": "t"
+        },
+        {
+          "Name": "all_gt_baseline",
+          "ConditionList": [
+            "trial_type.faces", "trial_type.objects"
+          ],
+          "weights": [1, 1],
+          "type": "t"
+        }
+      ]
+    },
+    {
+      "Level": "dataset",
+      "AutoContrasts": ["trial_type.faces", "trial_type.objects", "faces_gt_objects", "objects_gt_faces"]
+    }
+  ]
+}
