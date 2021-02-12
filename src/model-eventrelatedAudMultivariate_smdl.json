@@ -1,0 +1,30 @@
+{
+  "Name": "Combiemo Auditory",
+  "Description": "model for event-related runs",
+  "Input": {
+    "task": "eventrelatedCombiemoAuditory"
+  },
+  "Steps": [
+    {
+      "Level": "run",
+      "Model": {
+        "X": [
+          "trial_type.1",
+          "trial_type.2",
+          "trial_type.3",
+          "trial_type.4",
+          "trial_type.5",
+          "trial_type.r",
+          "trial_type.c",
+          "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
+        ]
+      },
+      "AutoContrasts": [
+        "trial_type.1",
+        "trial_type.2",
+        "trial_type.3",
+        "trial_type.4",
+        "trial_type.5"]
+    }
+  ]
+}

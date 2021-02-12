@@ -1,4 +1,4 @@
-function opt = facelocalizer_getOption()
+function opt = eventrelatedAud_getOption()
     %   __  ____  ____     _      _    _
     %  / _)(  _ \(  _ \   | |    / \  | )
     % ( (_  )___/ )___/   | |_  / _ \ | \
@@ -29,29 +29,39 @@ function opt = facelocalizer_getOption()
     % group of subjects to analyze
     opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['002']}; % ,['004'],['005'],['006'],['007'],['008']
+    opt.subjects = {['004'],['005'],['006'],['007'],['008']}; %,['002']
 
     % task to analyze
-    opt.taskName = 'facelocalizerCombiemo';
+    opt.taskName = 'eventrelatedCombiemoAuditory';
+    
+    % normalized space
+    opt.space = 'MNI';
+%     % native space
+%     opt.space = 'individual';
+
+% parallel pooling (I have max 2 workers on this computer)
+opt.parallelize.do = true;
+opt.parallelize.nbWorkers = 2;
+opt.parallelize.killOnExit = true;
+
 
     % The directory where the data are located
-    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/project-combiemo-loc-bids';
-    opt.derivativesDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives';
+    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/project-combiemo-bids';
+    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/derivatives-auditory';
 
     % specify the model file that contains the contrasts to compute
-    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-facelocalizer_smdl.json';
+    % univ
+%    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedAud_smdl.json';
+    % multiv
+    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedAudMultivariate_smdl.json';
+     
 
-    
-    % normalize or not to normalize?
-      opt.space = 'MNI';
-%      opt.space = 'individual';
-   
     % specify the result to compute
     % Contrasts.Name has to match one of the contrast defined in the model json file
     opt.result.Steps(1) = struct( ...
         'Level',  'dataset', ...
         'Contrasts', struct( ...
-                        'Name', 'faces_gt_objects', ... %
+                        'Name', '', ... %
                         'Mask', false, ... % this might need improving if a mask is required
                         'MC', 'FWE', ... FWE, none, FDR
                         'p', 0.05, ...

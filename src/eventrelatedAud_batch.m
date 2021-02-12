@@ -22,7 +22,7 @@ clear;
 clc;
 
 %% Run batches
-opt = facelocalizer_getOption();
+opt = eventrelatedAud_getOption();
 
 % the cdirectory with this script becomes the current directory
 WD = pwd;
@@ -32,36 +32,42 @@ addpath(genpath(WD));
 
 % In case some toolboxes need to be added the matlab path, specify and uncomment
 % in the lines below
-% toolbox_path = '';
-% addpath(fullfile(toolbox_path)
+toolbox_path = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/lib';
+addpath(genpath(fullfile(toolbox_path)));
 
 checkDependencies();
 
 % % copy raw folder into derivatives folder
-bidsCopyRawFolder(opt, 1)
+ bidsCopyRawFolder(opt, 1)
 % 
+
+funcFWHM = 0;
+
 % % preprocessing
  bidsSTC(opt);
  bidsSpatialPrepro(opt);
- bidsSmoothing(6, opt);
+ bidsSmoothing(2, opt);
+ 
 
 % subject level Univariate
-bidsFFX('specifyAndEstimate', opt, 6);
-bidsFFX('contrasts', opt, 6);
+bidsFFX('specifyAndEstimate', opt, 2);
+bidsFFX('contrasts', opt, 2);
+
+ % for MVPA trying no smoothing
+ bidsSmoothing(0, opt);
+ bidsFFX('specifyAndEstimate', opt, 0);
+ bidsFFX('contrasts', opt, 0);
+ 
+
 
 % group level univariate
-funcFWHM=6;
-conFWHM = 8;
-bidsRFX('smoothContrasts', opt, funcFWHM, conFWHM);
-
-% group level univariate
-% BIDS_RFX(1, 6, 6);
-%BIDS_RFX(2, 6, 6);
+% bidsRFX(1, 6, 6);
+% bidsRFX(2, 6, 6);
 
 %BIDS_Results(6, 6, opt, 0);
 
 % subject level multivariate
 % isMVPA=1;
-% BIDS_FFX(1, 6, opt, isMVPA);
-% BIDS_FFX(2, 6, opt, isMVPA);
+% bidsFFX(1, 6, opt, isMVPA);
+% bidsFFX(2, 6, opt, isMVPA);
 % make4Dmaps(6,opt)

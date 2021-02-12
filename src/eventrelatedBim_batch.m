@@ -22,7 +22,7 @@ clear;
 clc;
 
 %% Run batches
-opt = facelocalizer_getOption();
+opt = eventrelatedBim_getOption();
 
 % the cdirectory with this script becomes the current directory
 WD = pwd;
@@ -32,31 +32,29 @@ addpath(genpath(WD));
 
 % In case some toolboxes need to be added the matlab path, specify and uncomment
 % in the lines below
-% toolbox_path = '';
-% addpath(fullfile(toolbox_path)
+toolbox_path = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/lib';
+addpath(genpath(fullfile(toolbox_path)));
 
 checkDependencies();
 
 % % copy raw folder into derivatives folder
-bidsCopyRawFolder(opt, 1)
+ bidsCopyRawFolder(opt, 1)
 % 
 % % preprocessing
+% slice timing correction
  bidsSTC(opt);
+%includes: realignment, coregistration, unwarping 
  bidsSpatialPrepro(opt);
- bidsSmoothing(6, opt);
+ bidsSmoothing(2, opt);
+ bidsSmoothing(2, opt);
 
 % subject level Univariate
-bidsFFX('specifyAndEstimate', opt, 6);
-bidsFFX('contrasts', opt, 6);
-
-% group level univariate
-funcFWHM=6;
-conFWHM = 8;
-bidsRFX('smoothContrasts', opt, funcFWHM, conFWHM);
+bidsFFX('specifyAndEstimate', opt, 2);
+bidsFFX('contrasts', opt, 2);
 
 % group level univariate
 % BIDS_RFX(1, 6, 6);
-%BIDS_RFX(2, 6, 6);
+% BIDS_RFX(2, 6, 6);
 
 %BIDS_Results(6, 6, opt, 0);
 
