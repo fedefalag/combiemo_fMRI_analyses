@@ -22,7 +22,7 @@ clear;
 clc;
 
 %% Run batches
-opt = voicelocalizer_getOption();
+opt = eventrelatedAud_rsa_getOption();
 
 % the cdirectory with this script becomes the current directory
 WD = pwd;
@@ -38,27 +38,40 @@ addpath(genpath(fullfile(toolbox_path)));
 checkDependencies();
 
 % % copy raw folder into derivatives folder
- bidsCopyRawFolder(opt, 1)
+% bidsCopyRawFolder(opt, 1)
 % 
 
-funcFWHM = 4;
+funcFWHM = 2;
+
 % % preprocessing
  bidsSTC(opt);
  bidsSpatialPrepro(opt);
- bidsSmoothing(funcFWHM, opt);
+ bidsSmoothing(2, opt);
+ 
 
 % subject level Univariate
 bidsFFX('specifyAndEstimate', opt, funcFWHM);
-% bidsFFX('contrasts', opt, funcFWHM);
+bidsFFX('contrasts', opt, funcFWHM);
 
+% creating 4D maps
+ bidsConcatBetaTmaps(opt, funcFWHM, 0, 0); % last two arguments set to zeros in order not to delete beta and tmaps
+
+ % for MVPA trying no smoothing
+ 
+ % last two arguments set to zeros in order not to delete beta and tmaps
+ 
+% perform MVPA? very beta version
+funcFWHM = 0;
+cosmomvpaRoiCrossValidation(opt, funcFWHM)
+ 
 % group level univariate
-% BIDS_RFX(1, 6, 6);
-%BIDS_RFX(2, 6, 6);
+% bidsRFX(1, 6, 6);
+% bidsRFX(2, 6, 6);
 
 %BIDS_Results(6, 6, opt, 0);
 
 % subject level multivariate
 % isMVPA=1;
-% BIDS_FFX(1, 6, opt, isMVPA);
-% BIDS_FFX(2, 6, opt, isMVPA);
+% bidsFFX(1, 6, opt, isMVPA);
+% bidsFFX(2, 6, opt, isMVPA);
 % make4Dmaps(6,opt)

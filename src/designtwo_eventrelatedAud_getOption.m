@@ -1,4 +1,4 @@
-function opt = voicelocalizer_getOption()
+function opt = designtwo_eventrelatedAud_getOption()
     %   __  ____  ____     _      _    _
     %  / _)(  _ \(  _ \   | |    / \  | )
     % ( (_  )___/ )___/   | |_  / _ \ | \
@@ -29,25 +29,56 @@ function opt = voicelocalizer_getOption()
     % group of subjects to analyze
     opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['002'],['004'],['005'],['006'],['007'],['008']}; % 
+    opt.subjects = {['001']}; %['001'],['002'],['003'],['004'],['005']
 
     % task to analyze
-    opt.taskName = 'voicelocalizerCombiemo';
+    opt.taskName = 'eventrelatedCombiemoAuditory';
+    
+    % normalized space
+    opt.space = 'MNI';
+%     % native space
+%     opt.space = 'individual';
+
+% parallel pooling (I have max 2 workers on this computer)
+opt.parallelize.do = true;
+opt.parallelize.nbWorkers = 2;
+opt.parallelize.killOnExit = true;
+
 
     % The directory where the data are located
-    opt.dataDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/project-combiemo-loc-bids';
-    opt.derivativesDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives-voice';
+    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/design-two/raw';
+    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/design-two/derivatives';
+    opt.derivativesDataDir = '/Users/falagiarda/project-combiemo-playaround/design-two/derivatives';
+   
+    % for MVPA with cosmo
+    % directory of the masks
+    % directory of my masks
+    opt.locDir = '/Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives-voice/derivatives/cpp_spm/';
+    opt.maskDir = '/stats/ffx_task-voicelocalizerCombiemo/ffx_space-MNI_FWHM-2/'; % sphereROIs masks are instead here: '/ROIs/resized/';
+    
+    opt.resDir = '/cosmoMVPA_res/funcROIs_res/'; % or /cosmoMVPA_res/funcROIs_res/
+    opt.derivExtension = 'derivatives/cpp_spm/';
+    opt.dataExtensionDir = '/stats/ffx_task-eventrelatedCombiemoAuditory/ffx_space-MNI_FWHM-';
+    %opt.funcFWHM = 0;
 
     % specify the model file that contains the contrasts to compute
-    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-voiceLoc_smdl.json';
+    % univ
+%    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedAud_smdl.json';
+    % multiv
+    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedAudMultivariate_smdl.json';
+    opt.cosmomvpa.ffxResults = {'beta','t_maps'}; % 
+    % this is calculated for right and left TVAs with 6subj
+    opt.cosmomvpa.rois = {'rTVA','lTVA'};
+    %opt.cosmomvpa.ratioToKeepBetas = [187,132]; % min betas
+    opt.cosmomvpa.ratioToKeep = [184]; % min tmaps
+    opt.thre = {'005unc','05unc'};
+    opt.cosmomvpa.nbTrialRepetition = 1; % each emotion repeated four times in each run
+    opt.cosmomvpa.nbRun = 20; % there are 20 runs in total in the task
+    opt.cosmomvpa.modalities = 'auditory';
+    opt.cosmomvpa.child_classifier=@cosmo_classify_libsvm;
+    opt.cosmomvpa.feature_selector=@cosmo_anova_feature_selector;
+     
 
-    opt.space = 'MNI';
-    
-    % parallel pooling (I have max 2 workers on this computer)
-    opt.parallelize.do = true;
-    opt.parallelize.nbWorkers = 2;
-    opt.parallelize.killOnExit = true;
-    
     % specify the result to compute
     % Contrasts.Name has to match one of the contrast defined in the model json file
     opt.result.Steps(1) = struct( ...

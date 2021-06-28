@@ -29,7 +29,7 @@ function opt = eventrelatedVis_getOption()
     % group of subjects to analyze
     opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['002'],['004'],['005'],['006'],['007'],['008']};
+    opt.subjects = {['002'],['004'],['005'],['006'],['007'],['008']}; % ,['004'],['005'],['006'],['007'],['008']
 
     % task to analyze
     opt.taskName = 'eventrelatedCombiemoVisual';
@@ -43,16 +43,39 @@ function opt = eventrelatedVis_getOption()
     opt.parallelize.killOnExit = true;
 
     % The directory where the data are located
-    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/project-combiemo-bids';
-    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/derivatives-visual';
-
+    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/project-combiemo-bids/';
+    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/derivatives-visual/';
+    opt.locDir = '/Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives-face/derivatives/cpp_spm/';
+    opt.maskDir = '/stats/ffx_task-facelocalizerCombiemo/ffx_space-MNI_FWHM-0/'; % sphereROIs masks are instead here: '/ROIs/resized/';
+    opt.resDir = '/cosmoMVPA_res/funcROIs_res/'; % or /cosmoMVPA_res/funcROIs_res/
+    opt.derivExtension = '/stats/ffx_task-eventrelatedCombiemoVisual/ffx_space-MNI_FWHM-0/';
+    opt.derivativesDataDir = '/Users/falagiarda/project-combiemo-playaround/exploring_the_repos/derivatives-visual/derivatives/cpp_spm/';
+    
+    
+    %opt.funcFWHM = 0;
+    
+    
     % specify the model file that contains the contrasts to compute
     % univ
-    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedVis_smdl.json';
+%    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedVis_smdl.json';
     % multiv
-%    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedVisMultivariate_smdl.json';
+    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-eventrelatedVisMultivariate_smdl.json';
     
-    
+        
+    % cosmomvpa opt
+    opt.cosmomvpa.ffxResults = {'beta','t_maps'}; % 'beta'
+    % this is calculated for right and left TVAs with 6subj
+    opt.cosmomvpa.rois = {'rFFA','rOFA','rSTS','rIFG','lFFA','lOFA','lSTS','lIFG',}; % 'rFFA','lFFA','rOFA','lOFA', %'rOFA',
+    %opt.cosmomvpa.voxelNrByRoi = [223,232,220,220,238,213,244,242];
+    opt.cosmomvpa.voxelNrByRoi = [302,338,352,313,305,365,376,348];
+    %opt.cosmomvpa.ratioToKeepBetas = [259,126]; % min betas
+    opt.cosmomvpa.ratioToKeep = [200]; % min tmaps in the 6 subjects
+    opt.thre = {'001unc'}; % ,'unc001'
+    opt.cosmomvpa.nbTrialRepetition = 1; % each emotion repeated four times in each run
+    opt.cosmomvpa.nbRun = 20; % there are 20 runs in total in the task
+    opt.cosmomvpa.modalities = 'visual';
+    opt.cosmomvpa.child_classifier=@cosmo_classify_libsvm;
+    opt.cosmomvpa.feature_selector=@cosmo_anova_feature_selector;
     
     % specify the result to compute
     % Contrasts.Name has to match one of the contrast defined in the model json file

@@ -32,22 +32,24 @@ addpath(genpath(WD));
 
 % In case some toolboxes need to be added the matlab path, specify and uncomment
 % in the lines below
-% toolbox_path = '';
-% addpath(fullfile(toolbox_path)
+toolbox_path = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/lib';
+addpath(genpath(fullfile(toolbox_path)));
 
 checkDependencies();
 
 % % copy raw folder into derivatives folder
 bidsCopyRawFolder(opt, 1)
 % 
+ 
+
 % % preprocessing
  bidsSTC(opt);
  bidsSpatialPrepro(opt);
- bidsSmoothing(6, opt);
+ bidsSmoothing(funcFWHM, opt);
 
 % subject level Univariate
-bidsFFX('specifyAndEstimate', opt, 6);
-bidsFFX('contrasts', opt, 6);
+bidsFFX('specifyAndEstimate', opt, funcFWHM);
+bidsFFX('contrasts', opt, funcFWHM);
 
 % group level univariate
 funcFWHM=6;

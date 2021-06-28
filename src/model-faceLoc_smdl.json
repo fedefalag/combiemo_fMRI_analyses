@@ -1,0 +1,64 @@
+{
+  "Name": "Combiemo Visual localizer",
+  "Description": "",
+  "Input": {
+    "task": "facelocalizerCombiemo"
+  },
+  "Steps": [
+    {
+      "Level": "run",
+      "Model": {
+        "X": [
+          "trial_type.faces",
+          "trial_type.objects",
+          "trial_type.keypress",
+          "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
+        ]
+      }
+    },
+    {
+      "Level": "subject",
+      "Model": {
+        "X": [
+          "trial_type.faces",
+          "trial_type.objects",
+          "trial_type.c",
+          "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
+        ]
+      },
+      "AutoContrasts": ["trial_type.faces", "trial_type.objects", "trial_type.c"],
+      "Contrasts": [
+        {
+          "Name": "faces_gt_objects",
+          "ConditionList": [
+             "trial_type.faces", "trial_type.objects"
+          ],
+          "weights": [1, -1],
+          "type": "t"
+        },
+        {
+          "Name": "objects_gt_faces",
+          "ConditionList": [
+            "trial_type.faces", "trial_type.objects", "trial_type.c"
+          ],
+          "weights": [-1, 1],
+          "type": "t"
+        },
+        {
+          "Name": "all_gt_baseline",
+          "ConditionList": [
+            "trial_type.faces", "trial_type.objects"
+          ],
+          "weights": [1, 1],
+          "type": "t"
+        }
+      ]
+    },
+    {
+      "Level": "dataset",
+      "AutoContrasts": [
+
+]
+    }
+  ]
+}

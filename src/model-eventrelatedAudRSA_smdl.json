@@ -1,0 +1,60 @@
+{
+  "Name": "Combiemo Auditory",
+  "Description": "model for event-related runs with individual stimuli modelized",
+  "Input": {
+    "task": "eventrelatedCombiemoAuditory"
+  },
+  "Steps": [
+    {
+      "Level": "run",
+      "Model": {
+        "X": [
+          "trial_type.1",
+          "trial_type.2",
+          "trial_type.3",
+          "trial_type.4",
+          "trial_type.5",
+          "trial_type.6",
+          "trial_type.7",
+          "trial_type.8",
+          "trial_type.9",
+          "trial_type.10",
+          "trial_type.11",
+          "trial_type.12",
+          "trial_type.13",
+          "trial_type.14",
+          "trial_type.15",
+          "trial_type.16",
+          "trial_type.17",
+          "trial_type.18",
+          "trial_type.19",
+          "trial_type.20",
+          "trial_type.r",
+          "trial_type.c",
+          "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
+        ]
+      },
+      "AutoContrasts": [
+          "trial_type.1",
+          "trial_type.2",
+          "trial_type.3",
+          "trial_type.4",
+          "trial_type.5",
+          "trial_type.6",
+          "trial_type.7",
+          "trial_type.8",
+          "trial_type.9",
+          "trial_type.10",
+          "trial_type.11",
+          "trial_type.12",
+          "trial_type.13",
+          "trial_type.14",
+          "trial_type.15",
+          "trial_type.16",
+          "trial_type.17",
+          "trial_type.18",
+          "trial_type.19",
+          "trial_type.20"]
+    }
+  ]
+}

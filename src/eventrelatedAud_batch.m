@@ -41,7 +41,7 @@ checkDependencies();
  bidsCopyRawFolder(opt, 1)
 % 
 
-funcFWHM = 0;
+funcFWHM = 2;
 
 % % preprocessing
  bidsSTC(opt);
@@ -53,13 +53,16 @@ funcFWHM = 0;
 bidsFFX('specifyAndEstimate', opt, 2);
 bidsFFX('contrasts', opt, 2);
 
+
+
  % for MVPA trying no smoothing
- bidsSmoothing(0, opt);
- bidsFFX('specifyAndEstimate', opt, 0);
- bidsFFX('contrasts', opt, 0);
  
-
-
+ % last two arguments set to zeros in order not to delete beta and tmaps
+ 
+% perform MVPA? very beta version
+funcFWHM = 0;
+cosmomvpaRoiCrossValidation(opt, funcFWHM)
+ 
 % group level univariate
 % bidsRFX(1, 6, 6);
 % bidsRFX(2, 6, 6);

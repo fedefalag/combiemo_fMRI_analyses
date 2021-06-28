@@ -55,6 +55,19 @@ bidsFFX('specifyAndEstimate', opt, 2);
 bidsFFX('specifyAndEstimate', opt, 6);
 bidsFFX('contrasts', opt, 2);
 
+ % for MVPA trying no smoothing or 2mm
+ funcFWHM = 2;
+ bidsSmoothing(funcFWHM, opt);
+ bidsFFX('specifyAndEstimate', opt, funcFWHM);
+ bidsFFX('contrasts', opt, funcFWHM);
+ 
+ % creating 4D maps
+ bidsConcatBetaTmaps(opt, funcFWHM, 0, 0); % last two arguments set to zeros in order not to delete beta and tmaps
+ 
+% perform MVPA? very beta version
+funcFWHM = 0;
+cosmomvpaRoiCrossValidation(opt, funcFWHM)
+ 
 % group level univariate
 % BIDS_RFX(1, 6, 6);
 % BIDS_RFX(2, 6, 6);

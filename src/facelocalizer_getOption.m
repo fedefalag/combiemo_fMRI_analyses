@@ -29,17 +29,17 @@ function opt = facelocalizer_getOption()
     % group of subjects to analyze
     opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['002']}; % ,['004'],['005'],['006'],['007'],['008']
+    opt.subjects = {['002'],['004'],['005'],['006'],['007'],['008']}; % ,['005'],['006'],['007'],['008']
 
     % task to analyze
     opt.taskName = 'facelocalizerCombiemo';
 
     % The directory where the data are located
     opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/project-combiemo-loc-bids';
-    opt.derivativesDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives';
+    opt.derivativesDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives-face';
 
     % specify the model file that contains the contrasts to compute
-    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-facelocalizer_smdl.json';
+    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-faceLoc_smdl.json';
 
     
     % normalize or not to normalize?

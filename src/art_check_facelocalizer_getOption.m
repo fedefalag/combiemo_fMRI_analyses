@@ -1,4 +1,4 @@
-function opt = voicelocalizer_getOption()
+function opt = art_check_facelocalizer_getOption()
     %   __  ____  ____     _      _    _
     %  / _)(  _ \(  _ \   | |    / \  | )
     % ( (_  )___/ )___/   | |_  / _ \ | \
@@ -29,31 +29,29 @@ function opt = voicelocalizer_getOption()
     % group of subjects to analyze
     opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['002'],['004'],['005'],['006'],['007'],['008']}; % 
+    opt.subjects = {['001']}; % ,['005'],['006'],['007'],['008']
 
     % task to analyze
-    opt.taskName = 'voicelocalizerCombiemo';
+    opt.taskName = 'facelocalizerCombiemo';
 
     % The directory where the data are located
-    opt.dataDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/project-combiemo-loc-bids';
-    opt.derivativesDir = 'Users/falagiarda/project-combiemo-playaround/only_localizers_analyses/derivatives-voice';
+    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/art_check/raw';
+    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/art_check/derivatives';
 
     % specify the model file that contains the contrasts to compute
-    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-voiceLoc_smdl.json';
+    opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-faceLoc_smdl.json';
 
-    opt.space = 'MNI';
     
-    % parallel pooling (I have max 2 workers on this computer)
-    opt.parallelize.do = true;
-    opt.parallelize.nbWorkers = 2;
-    opt.parallelize.killOnExit = true;
-    
+    % normalize or not to normalize?
+      opt.space = 'MNI';
+%      opt.space = 'individual';
+   
     % specify the result to compute
     % Contrasts.Name has to match one of the contrast defined in the model json file
     opt.result.Steps(1) = struct( ...
         'Level',  'dataset', ...
         'Contrasts', struct( ...
-                        'Name', '', ... %
+                        'Name', 'faces_gt_objects', ... %
                         'Mask', false, ... % this might need improving if a mask is required
                         'MC', 'FWE', ... FWE, none, FDR
                         'p', 0.05, ...
