@@ -1,4 +1,4 @@
-function opt = art_check_facelocalizer_getOption()
+function opt = designtwo_facelocalizer_getOption()
     %   __  ____  ____     _      _    _
     %  / _)(  _ \(  _ \   | |    / \  | )
     % ( (_  )___/ )___/   | |_  / _ \ | \
@@ -26,25 +26,24 @@ function opt = art_check_facelocalizer_getOption()
         opt = [];
     end
 
-    % group of subjects to analyze
-    opt.groups = {''};
+    % % group of subjects to analyze
+    %opt.groups = {''};
     % suject to run in each group
-    opt.subjects = {['001']}; % ,['005'],['006'],['007'],['008']
+    opt.subjects = {['001'],['002'],['003'],['004'],['005'],['006'],['007'],['008'],['009'],['010'],['011'],['012'],['013'],['014'],['015'],['016'],['017'],['018'],['019'],['020'],['021'],['022'],['023'],['024']};
 
     % task to analyze
     opt.taskName = 'facelocalizerCombiemo';
 
     % The directory where the data are located
-    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/art_check/raw';
-    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/art_check/derivatives';
+    opt.dataDir = '/Users/falagiarda/project-combiemo-playaround/design-two/raw';
+    opt.derivativesDir = '/Users/falagiarda/project-combiemo-playaround/design-two/derivatives';
 
     % specify the model file that contains the contrasts to compute
     opt.model.file = '/Users/falagiarda/GitHub/combiemo_fMRI_analyses/src/model-faceLoc_smdl.json';
 
     
     % normalize or not to normalize?
-      opt.space = 'MNI';
-%      opt.space = 'individual';
+    opt.space = 'MNI';
    
     % specify the result to compute
     % Contrasts.Name has to match one of the contrast defined in the model json file
