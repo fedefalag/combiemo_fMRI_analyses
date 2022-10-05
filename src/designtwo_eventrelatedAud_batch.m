@@ -38,34 +38,20 @@ addpath(genpath(fullfile(toolbox_path)));
 checkDependencies();
 
 % % copy raw folder into derivatives folder
- bidsCopyRawFolder(opt, 1)
-% 
+% bidsCopyRawFolder(opt, 1)
 
+% mm of filter for smoothing
 funcFWHM = 2;
 
 % % preprocessing
  bidsSTC(opt);
  bidsSpatialPrepro(opt);
- bidsSmoothing(2, opt);
+ bidsSmoothing(funcFWHM, opt);
  
 
 % subject level Univariate
-bidsFFX('specifyAndEstimate', opt, 2);
-bidsFFX('contrasts', opt, 2);
+bidsFFX('specifyAndEstimate', opt, funcFWHM);
+bidsFFX('contrasts', opt, funcFWHM);
 
 % last two arguments set to zeros in order not to delete beta and tmaps
- 
-% perform MVPA? very beta version
-cosmomvpaRoiCrossValidation(opt, funcFWHM)
- 
-% group level univariate
-% bidsRFX(1, 6, 6);
-% bidsRFX(2, 6, 6);
-
-%BIDS_Results(6, 6, opt, 0);
-
-% subject level multivariate
-% isMVPA=1;
-% bidsFFX(1, 6, opt, isMVPA);
-% bidsFFX(2, 6, opt, isMVPA);
-% make4Dmaps(6,opt)
+bidsConcatBetaTmaps(opt, funcFWHM, 0, 0)

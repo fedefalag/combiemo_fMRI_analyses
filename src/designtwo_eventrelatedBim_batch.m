@@ -22,7 +22,7 @@ clear;
 clc;
 
 %% Run batches
-opt = eventrelatedBim_getOption();
+opt = designtwo_eventrelatedBim_getOption();
 
 % the cdirectory with this script becomes the current directory
 WD = pwd;
@@ -38,28 +38,20 @@ addpath(genpath(fullfile(toolbox_path)));
 checkDependencies();
 
 % % copy raw folder into derivatives folder
- bidsCopyRawFolder(opt, 1)
+% bidsCopyRawFolder(opt, 1)
 % 
+
+funcFWHM = 2;
+
 % % preprocessing
-% slice timing correction
  bidsSTC(opt);
-%includes: realignment, coregistration, unwarping 
  bidsSpatialPrepro(opt);
- bidsSmoothing(2, opt);
- bidsSmoothing(2, opt);
+ bidsSmoothing(funcFWHM, opt);
+ 
 
 % subject level Univariate
 bidsFFX('specifyAndEstimate', opt, 2);
 bidsFFX('contrasts', opt, 2);
 
-% group level univariate
-% BIDS_RFX(1, 6, 6);
-% BIDS_RFX(2, 6, 6);
-
-%BIDS_Results(6, 6, opt, 0);
-
-% subject level multivariate
-% isMVPA=1;
-% BIDS_FFX(1, 6, opt, isMVPA);
-% BIDS_FFX(2, 6, opt, isMVPA);
-% make4Dmaps(6,opt)
+% last two arguments set to zeros in order not to delete beta and tmaps
+bidsConcatBetaTmaps(opt, funcFWHM, 0, 0)
