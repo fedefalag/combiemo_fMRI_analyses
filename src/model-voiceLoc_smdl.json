@@ -1,5 +1,5 @@
 {
-  "Name": "Combiemo Auditory",
+  "Name": "Combiemo Auditory localizer",
   "Description": "",
   "Input": {
     "task": "voicelocalizerCombiemo"
@@ -26,12 +26,12 @@
           "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
         ]
       },
-      "AutoContrasts": ["trial_type.voices", "trial_type.objects" ],
+      "AutoContrasts": ["trial_type.voices", "trial_type.objects", "trial_type.keypress"],
       "Contrasts": [
         {
           "Name": "voices_gt_objects",
           "ConditionList": [
-            "trial_type.voices", "trial_type.objects"
+             "trial_type.voices", "trial_type.objects"
           ],
           "weights": [1, -1],
           "type": "t"
@@ -57,10 +57,8 @@
     {
       "Level": "dataset",
       "AutoContrasts": [
-        "trial_type.voices",
-        "trial_type.objects",
-        "voices_gt_objects",
-        "objects_gt_voices"]
+
+]
     }
   ]
 }

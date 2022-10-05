@@ -22,7 +22,7 @@ clear;
 clc;
 
 %% Run batches
-opt = art_check_facelocalizer_getOption();
+opt = designtwo_voicelocalizer_getOption();
 
 % the cdirectory with this script becomes the current directory
 WD = pwd;
@@ -38,10 +38,10 @@ addpath(genpath(fullfile(toolbox_path)));
 checkDependencies();
 
 % % copy raw folder into derivatives folder
-bidsCopyRawFolder(opt, 1)
+% bidsCopyRawFolder(opt, 1)
 % 
- 
 
+funcFWHM = 6;
 % % preprocessing
  bidsSTC(opt);
  bidsSpatialPrepro(opt);
@@ -52,18 +52,5 @@ bidsFFX('specifyAndEstimate', opt, funcFWHM);
 bidsFFX('contrasts', opt, funcFWHM);
 
 % group level univariate
-funcFWHM=6;
 conFWHM = 8;
 bidsRFX('smoothContrasts', opt, funcFWHM, conFWHM);
-
-% group level univariate
-% BIDS_RFX(1, 6, 6);
-%BIDS_RFX(2, 6, 6);
-
-%BIDS_Results(6, 6, opt, 0);
-
-% subject level multivariate
-% isMVPA=1;
-% BIDS_FFX(1, 6, opt, isMVPA);
-% BIDS_FFX(2, 6, opt, isMVPA);
-% make4Dmaps(6,opt)
