@@ -53,7 +53,6 @@ bidsFFX('specifyAndEstimate', opt, funcFWHM);
 bidsFFX('contrasts', opt, funcFWHM);
 
 % group level univariate
-
 conFWHM = 8;
 bidsRFX('smoothContrasts', opt, funcFWHM, conFWHM);
 
