@@ -41,7 +41,8 @@ checkDependencies();
 funcFWHM = 2;
 
 % subject level Univariate
-bidsFFX('specifyAndEstimate', opt, 2);
+% bidsFFX('specifyAndEstimate', opt, 2);    
+
 bidsFFX('contrasts', opt, 2);
 
 % last two arguments set to zeros in order not to delete beta and tmaps
