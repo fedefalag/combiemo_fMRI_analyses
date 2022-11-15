@@ -1,0 +1,26 @@
+{
+  "Name": "Combiemo Bimodal Actor",
+  "Description": "model for event-related runs",
+  "Input": {
+    "task": "eventrelatedCombiemoBimodal"
+  },
+  "Steps": [
+    {
+      "Level": "run",
+      "Model": {
+        "X": [
+          "actor.27",
+          "actor.30",
+          "actor.32",
+          "actor.33",
+          "trans_x", "trans_y", "trans_z", "rot_x", "rot_y", "rot_z"
+        ]
+      },
+      "AutoContrasts": [
+        "actor.27",
+        "actor.30",
+        "actor.32",
+        "actor.33"]
+    }
+  ]
+}
